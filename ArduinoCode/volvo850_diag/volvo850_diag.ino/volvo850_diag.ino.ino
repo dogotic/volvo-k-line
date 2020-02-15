@@ -83,8 +83,8 @@ bool iso_init(void)
   for(int i=0; i<3; i++) 
   {
     b=iso_read_byte(); 
-    Serial.print("b : ");
-    Serial.println(b);
+    Serial.print("ECU ACKNOWLEDGE : ");
+    Serial.println(b, HEX);
     if(b!=0)
       break;
   }
@@ -95,19 +95,22 @@ bool iso_init(void)
   // wait for kw1 and kw2
   kw1=iso_read_byte();
   Serial.print("kw1 : ");
-  Serial.println(kw1);
+  Serial.println(kw1,HEX);
 
   kw2=iso_read_byte();
   Serial.print("kw2 : ");
-  Serial.println(kw2);  
-//  delay(25);
+  Serial.println(kw2,HEX);  
+  delay(250);
 
   // sent ~kw2 (invert of last keyword)
   iso_write_byte(~kw2);
+  delay(250);
 
-  // ECU answer by 0xCC (~0x33)
+  // ECU answer by 0xAB
   b=iso_read_byte();
-  if(b!=0xCC)
+  Serial.print("ANSWER : ");
+  Serial.println(b,HEX);
+  if(b != 0xAB)
     return false;
 
   // init OK!
@@ -129,9 +132,16 @@ void loop()
 {
   if (!is_initialized)
   {
-    Serial.println("NOT INITIALIZED\n");    
     // put your main code here, to run repeatedly:
-    is_initialized = iso_init();    
+    is_initialized = iso_init();  
+    if (is_initialized)
+    {
+      Serial.println("ECU INITIALIZED");
+    }
+    else
+    {
+      Serial.println("NOT INITIALIZED\n");    
+    }
   }
   delay(1000);
 }
