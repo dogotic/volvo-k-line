@@ -6,4 +6,4 @@
  */
 void ISO9141_2_UART_init(void);
 void ISO9141_2_UART_Transmit(uint8_t data);
-uint8_t ISO9141_2_UART_Receive(void);
+int8_t ISO9141_2_UART_Receive(void);

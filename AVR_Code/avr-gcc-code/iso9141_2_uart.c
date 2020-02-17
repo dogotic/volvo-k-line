@@ -42,10 +42,16 @@ void ISO9141_2_UART_Transmit(uint8_t data)
 	UDR1 = data;
 }
 
-uint8_t ISO9141_2_UART_Receive(void)
+int8_t ISO9141_2_UART_Receive(void)
 {
 	/* Wait for empty transmit buffer */
-    while (!(UCSR1A & (1<<RXC1)));
+    if (!(UCSR1A & (1<<RXC1)))
+    {
+    	return -1;
+    }
+    else
+    {
 	/* return data from the USART receive buffer */
-    return UDR1;
+    	return UDR1;
+    }
 }
