@@ -50,7 +50,7 @@ uint8_t PC_COM_UART_Receive(void)
 }
 
 // USART send string handler
-void PC_COM_UART_Puts(uint8_t *string)
+void PC_COM_UART_Puts(const char *string)
 {
 	while(*string)
 	{

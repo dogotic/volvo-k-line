@@ -11,5 +11,5 @@
 void PC_COM_UART_init(void);
 void PC_COM_UART_Transmit(uint8_t data);
 uint8_t PC_COM_UART_Receive(void);
-void PC_COM_UART_Puts(uint8_t *string);
+void PC_COM_UART_Puts(const char *string);
 #endif /* PC_COM_UART_H_ */
